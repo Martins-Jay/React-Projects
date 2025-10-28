@@ -12,8 +12,9 @@ function App() {
 function Counter() {
   const [curStep, setCurStep] = useState(1);
   const [curCount, setCurCount] = useState(0);
+  const [curRange, setCurRange] = useState(0);
 
-  const curDate = new Date()
+  const curDate = new Date();
 
   const buttonStyle = {
     padding: '10px 20px',
@@ -39,7 +40,7 @@ function Counter() {
 
   function nextCount() {
     setCurCount((curCount) => {
-      return curCount + curStep;
+      return curCount + curRange;
     });
   }
 
@@ -51,7 +52,16 @@ function Counter() {
 
   return (
     <>
-      <div className="step-wrapper">
+      <input
+        type="range"
+        min="0"
+        max="10"
+        value={curRange}
+        onChange={(e) => setCurRange(Number(e.target.value))}
+      />{' '}
+      <span>{curRange}</span>
+
+      {/* <div className="step-wrapper">
         <button className="" style={buttonStyle} onClick={previousStep}>
           -
         </button>
@@ -59,7 +69,7 @@ function Counter() {
         <button className="" style={buttonStyle} onClick={nextStep}>
           +
         </button>
-      </div>
+      </div> */}
 
       <div className="count-wrapper">
         <button className="" style={buttonStyle} onClick={previousCount}>
