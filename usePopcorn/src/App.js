@@ -169,24 +169,23 @@ function Logo() {
 function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useEffect(
-    function () {
-      function callback(e) {
-        // Prevent second Enter keydown from clearing the input
-        if (document.activeElement === inputEl.current) return;
+  useEffect(() => {
+    function callback(e) {
+      // Prevent second Enter keydown from clearing the input
+      if (document.activeElement === inputEl.current) return;
 
-        if (e.code === 'Enter') {
-          inputEl.current.focus();
-          setQuery('');
-        }
+      if (e.code === 'Enter') {
+        inputEl.current.focus();
+        setQuery('');
       }
+    }
 
-      document.addEventListener('keydown', callback);
+    document.addEventListener('keydown', callback);
 
-      return () => document.addEventListener('keydown', callback);
-    },
-    [setQuery]
-  );
+    return () => {
+      document.removeEventListener('keydown', callback);  // callback holds a refrence so we must use the callback
+    };
+  }, [setQuery]);
 
   // useEffect(function () {
   //   const el = document.querySelector('.search');
